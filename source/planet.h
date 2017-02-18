@@ -19,10 +19,10 @@ public:
   }
 
 
-  const emp::Circle<> & GetCircle() const { return circ;}
+  const emp::Circle & GetCircle() const { return circ;}
 
 
 protected:
-  emp::Circle<> circ; 
+  emp::Circle circ; 
 
 };
