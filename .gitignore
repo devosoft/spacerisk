@@ -30,6 +30,8 @@
 
 # Other
 *.
+*.swp
+*.pyc
 
 #dsym 
 *.dSYM
