@@ -13,12 +13,19 @@ namespace UI = emp::web;
 class WebInterface : public UI::Animate {
 public:
 
+  /**
+   *
+   */
+  static void Frame (const UI::Animate & anim) {
+    
+  }
+
   /** Actual constructor
    *
    * \param numPlanets the number of planets to construct with this interface
    */
   WebInterface(uint64_t numPlanets, UI::Canvas & canvas) : UI::Animate(canvas), galaxy(numPlanets) {
-     
+     // help, I'm trapped in a canvas factory
   }
 
   WebInterface() = delete; //< disabled default constructor
