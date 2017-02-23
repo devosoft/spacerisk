@@ -41,3 +41,6 @@ gplix
 gplix.js
 *.js.map
 *.js.mem
+
+# ycm config
+.ycm*
