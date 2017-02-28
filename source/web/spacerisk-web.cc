@@ -16,7 +16,13 @@ public:
   /**
    *
    */
-  static void Frame (const UI::Animate & anim) {
+  void DoFrame () {
+      canvas.Clear("black"); 
+      const auto & planets = galaxy.getPlanets(); 
+      for (const auto & planet : planets){
+          canvas.Draw(planet.GetCircle(), "pink"); 
+
+      }
     
   }
 
@@ -24,9 +30,17 @@ public:
    *
    * \param numPlanets the number of planets to construct with this interface
    */
-  WebInterface(uint64_t numPlanets, UI::Canvas & canvas) : UI::Animate(canvas), galaxy(numPlanets) {
+  WebInterface(uint64_t numPlanets, double width, double height) : galaxy(numPlanets, width, height), doc("emp_base"), canvas(doc.AddCanvas(width, height, "map")) {
      // help, I'm trapped in a canvas factory
+
+     doc.AddButton([this](){galaxy.Randomize();}, "Randomize", "random_button");
+     doc << "<h1>Hello, World!</h1>" ; 
+
+     canvas.On("click", [this](UI::MouseEvent event){ MouseClick(event);}); 
+
+     Start(); //start animation DoFrame() will be run repeatedly
   }
+
 
   WebInterface() = delete; //< disabled default constructor
 
@@ -39,7 +53,19 @@ public:
 private:
   /// the galaxy this interface displays
   Galaxy galaxy;
-  
+
+  // Is this how I use doxygen //< <> >> 
+  //< looks good
+  UI::Document doc; ////// make a doc
+  UI::Canvas canvas; //< canvas!
+
+  void MouseClick(UI::MouseEvent & event){
+      int x = event.clientX - canvas.GetXPos(); 
+      int y = event.clientY - canvas.GetYPos(); 
+
+      galaxy.AddPlanet(x,y,10); 
+  }
+
 };
 
 
@@ -47,8 +73,7 @@ private:
 /*
  * Just think of these as 'persistent', not 'globals'
  */
-UI::Document doc("emp_base");
-WebInterface interface(5);
+WebInterface interface(50, 600, 400);
 
 
 /**
@@ -56,5 +81,5 @@ WebInterface interface(5);
  */
 int main()
 {
-  doc << "<h1>Hello, world!</h1>";
+
 }

@@ -1,6 +1,3 @@
-
-
-
 #pragma once
 
 #include "tools/vector.h"
@@ -23,12 +20,42 @@ public:
    * \param width, in magic
    * \param height, also in magic
    */
-  Galaxy (uint64_t numPlanets, double width, double height) {
+  Galaxy (uint64_t numPlanets, double w, double h): width(w), height(h) {
     for (size_t i = 0; i < numPlanets; i++) {
-      // note, 5 & 20 are arbitrary
-      planets.emplace_back(random.GetDouble(width), random.GetDouble(height), random.GetDouble(5, 20));
+      planets.emplace_back(0,0,0); 
     }
+    Randomize(); 
   };
+
+  void Randomize(){
+      int counter = 0; 
+      for (size_t i=0; i<planets.size(); i++){
+
+          // note, 5 & 20 are arbitrary
+          double radius = random.GetDouble(5,20); 
+          double y = random.GetDouble(radius, height-radius); //make sure noting goes off screen
+          double x = random.GetDouble(radius, width-radius); 
+          planets[i].Reset(x,y,radius); 
+
+          if (counter > 1000000) continue; //if overlaps, just give up :) 
+
+          for(size_t j =0; j<i; j++){
+              if (planets[i].GetCircle().HasOverlap(planets[j].GetCircle())){
+                  i--; 
+                  counter++;
+                  break;
+
+              }
+          }
+      }
+  }
+
+  void AddPlanet(double x, double y, double r){
+      planets.emplace_back(x,y,r);
+  }
+
+  const emp::vector<Planet>& getPlanets() const { return planets;} 
+  const emp::vector<Agent>& getAgents() const { return agents;} 
 
 
 protected:
@@ -38,4 +65,5 @@ protected:
   emp::vector<Planet> planets;
   /// vector of agent objects for this galaxy ( slash universe, thanks spjps)
   emp::vector<Agent> agents;  
+  double width; double height; 
 };

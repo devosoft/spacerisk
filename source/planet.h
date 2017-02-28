@@ -31,6 +31,9 @@ public:
 
   const emp::Circle & GetCircle() const { return circ;}
 
+  void Reset(double x, double y, double r){
+      circ.Set(x,y,r); 
+  }
 
 protected:
   /// the circle for this planet
