@@ -32,9 +32,9 @@ public:
       for (size_t i=0; i<planets.size(); i++){
 
           // note, 5 & 20 are arbitrary
-          double radius = random.GetDouble(5,20); 
+          double radius = random.GetDouble(5,20);
           double y = random.GetDouble(radius, height-radius); //make sure noting goes off screen
-          double x = random.GetDouble(radius, width-radius); 
+          double x = random.GetDouble(radius, width-radius);
           planets[i].Reset(x,y,radius); 
 
           if (counter > 1000000) continue; //if overlaps, just give up :) 
@@ -54,8 +54,8 @@ public:
       planets.emplace_back(x,y,r);
   }
 
-  const emp::vector<Planet>& getPlanets() const { return planets;} 
-  const emp::vector<Agent>& getAgents() const { return agents;} 
+  const emp::vector<Planet>& GetPlanets() const { return planets;}
+  const emp::vector<Agent>& GetAgents() const { return agents;}
 
 
 protected:

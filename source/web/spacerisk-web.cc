@@ -18,12 +18,10 @@ public:
    */
   void DoFrame () {
       canvas.Clear("black"); 
-      const auto & planets = galaxy.getPlanets(); 
+      const auto & planets = galaxy.GetPlanets();
       for (const auto & planet : planets){
           canvas.Draw(planet.GetCircle(), "pink"); 
-
       }
-    
   }
 
   /** Actual constructor
@@ -60,10 +58,10 @@ private:
   UI::Canvas canvas; //< canvas!
 
   void MouseClick(UI::MouseEvent & event){
-      int x = event.clientX - canvas.GetXPos(); 
-      int y = event.clientY - canvas.GetYPos(); 
+      int x = event.clientX - canvas.GetXPos();
+      int y = event.clientY - canvas.GetYPos();
 
-      galaxy.AddPlanet(x,y,10); 
+      galaxy.AddPlanet(x,y,10);
   }
 
 };
