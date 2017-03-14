@@ -44,3 +44,7 @@ gplix.js
 
 # ycm config
 .ycm*
+
+# third party stuff
+
+third-party

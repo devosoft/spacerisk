@@ -1,0 +1,4 @@
+[submodule "third-party/doxygen"]
+	path = third-party/doxygen
+  url = https://github.com/doxygen/doxygen.git
+  ignore = dirty
