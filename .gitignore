@@ -53,3 +53,5 @@ third-party
 html/
 
 latex/
+
+web/*.js

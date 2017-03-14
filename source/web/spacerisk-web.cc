@@ -13,14 +13,25 @@ namespace UI = emp::web;
 class WebInterface : public UI::Animate {
 public:
 
-  /**
+  /** Draw a frame of the animation
    *
    */
   void DoFrame () {
+      
       canvas.Clear("black"); 
       const auto & planets = galaxy.GetPlanets();
+      std::cout << "Animating frame now." << std::endl;
       for (const auto & planet : planets){
-          canvas.Draw(planet.GetCircle(), "pink"); 
+          std::string currColor = "grey";
+
+          if (planet.GetOwner() != nullptr)
+          {
+            emp::Alert(emp::to_string("Found planet, has owner ", planet.GetOwner()->GetName(), " color ", planet.GetOwner()->GetColor() ));
+            std::cout << "Found planet, has owner " << planet.GetOwner()->GetName() << std::endl;
+            currColor = planet.GetOwner()->GetColor();
+          }
+          
+          canvas.Draw(planet.GetCircle(), currColor); 
       }
   }
 
@@ -34,6 +45,9 @@ public:
      doc.AddButton([this](){galaxy.Randomize();}, "Randomize", "random_button");
      doc << "<h1>Hello, World!</h1>" ; 
 
+     galaxy.AddAgent("Steven");
+     galaxy.AddAgent("Tess");
+     galaxy.AddAgent("Sponge");
      canvas.On("click", [this](UI::MouseEvent event){ MouseClick(event);}); 
 
      Start(); //start animation DoFrame() will be run repeatedly
