@@ -25,6 +25,9 @@ native: $(PROJECT)
 web: $(PROJECT).js
 all: $(PROJECT) $(PROJECT).js
 
+doc:
+	third-party/doxygen/build/bin/doxygen doxyfile
+
 debug:	CFLAGS_nat := $(CFLAGS_nat_debug)
 debug:	$(PROJECT)
 

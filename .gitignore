@@ -48,3 +48,8 @@ gplix.js
 # third party stuff
 
 third-party
+
+# HTML
+html/
+
+latex/
