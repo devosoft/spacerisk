@@ -23,7 +23,6 @@ public:
     emp_assert(id < emp::GetSize(PlayerColors));
     emp_assert(id >= 0);
     color = PlayerColors[ID];
-    std::cout << "Created agent with name " << name << " and ID " << ID << std::endl;
   }
 
   /** Get the color of this agent

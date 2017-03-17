@@ -57,7 +57,7 @@ public:
       }
 
       // grant each player a planet
-      for (auto agent : agents)
+      for (auto & agent : agents)
       {
         size_t randomChoice;
         // get a random choice of planet until the choice is unowned

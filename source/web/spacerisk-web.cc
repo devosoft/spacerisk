@@ -26,8 +26,6 @@ public:
 
           if (planet.GetOwner() != nullptr)
           {
-            emp::Alert(emp::to_string("Found planet, has owner ", planet.GetOwner()->GetName(), " color ", planet.GetOwner()->GetColor() ));
-            std::cout << "Found planet, has owner " << planet.GetOwner()->GetName() << std::endl;
             currColor = planet.GetOwner()->GetColor();
           }
           
