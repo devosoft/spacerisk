@@ -2,3 +2,6 @@
 	path = third-party/doxygen
   url = https://github.com/doxygen/doxygen.git
   ignore = dirty
+[submodule "third-party/catch"]
+	path = third-party/catch
+	url = git@github.com:philsquared/Catch.git
