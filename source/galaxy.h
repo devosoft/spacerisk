@@ -66,6 +66,8 @@ public:
         } while (planets[randomChoice].GetOwner());
 
         planets[randomChoice].SetOwner(&agent);
+        planets[randomChoice].SetPopulation(1);
+
       }
   }
 
@@ -88,7 +90,7 @@ public:
   }
 
   // buwhai?
-  const emp::vector<Planet>& GetPlanets() const { return planets;}
+  emp::vector<Planet>& GetPlanets() { return planets;}
   const emp::vector<Agent>& GetAgents() const { return agents;}
 
 

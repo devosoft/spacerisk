@@ -35,9 +35,25 @@ public:
    */
   std::string GetName() const { return name; }
 
+
+  /** Get the planet currently selected by this agent
+   *
+   */
+  Planet * GetSelected() const { return selected; }
+
+  /** set the planet we have selected
+   *
+   */
+  void SetSelected (Planet * sel) { 
+    selected = sel;
+  }
+
 protected:
   /// vector of pointers to planets owned by this agent
   std::set<Planet *> planets;
+
+  /// the planet selected, currently
+  Planet * selected = nullptr;
 
   /// Name of this agent
   std::string name = "unassigned";

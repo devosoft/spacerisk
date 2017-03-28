@@ -19,18 +19,35 @@ public:
   void DoFrame () {
       
       canvas.Clear("black"); 
-      const auto & planets = galaxy.GetPlanets();
+      auto & planets = galaxy.GetPlanets();
       std::cout << "Animating frame now." << std::endl;
-      for (const auto & planet : planets){
+
+      canvas.Font("10px Arial");
+
+      for (auto & planet : planets){
           std::string currColor = "grey";
 
           if (planet.GetOwner() != nullptr)
           {
             currColor = planet.GetOwner()->GetColor();
+
+            if (planet.GetOwner()->GetSelected() != nullptr) {
+              emp::Alert("Found planet!");
+            }
+
+            if (&planet == planet.GetOwner()->GetSelected()) {
+              currColor = "yellow";
+            }
           }
           
-          canvas.Draw(planet.GetCircle(), currColor); 
+          canvas.Draw(planet.GetCircle(), currColor);
+          canvas.CenterText(planet.GetCircle().GetCenterX(),
+                            planet.GetCircle().GetCenterY(),
+                            emp::to_string((int)planet.GetPopulation()),
+                            "white");
+          planet.GrowPopulation();
       }
+
   }
 
   /** Actual constructor
@@ -72,8 +89,13 @@ private:
   void MouseClick(UI::MouseEvent & event){
       int x = event.clientX - canvas.GetXPos();
       int y = event.clientY - canvas.GetYPos();
-
-      galaxy.AddPlanet(x,y,10);
+      
+      for (auto planet : galaxy.GetPlanets()) {
+        if(planet.GetCircle().Contains(x, y)) {
+          planet.GetOwner()->SetSelected(&planet);
+        }
+        
+      }
   }
 
 };
