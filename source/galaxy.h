@@ -1,16 +1,22 @@
 #pragma once
 
+// Empirical library includes
+#include "web/web.h"
+#include "web/Animate.h"
 #include "tools/vector.h"
 #include "tools/Random.h"
+
+// local includes
 #include "planet.h"
 #include "agent.h"
 
+namespace UI = emp::web;
 
 /** Class to represent a galaxy, with planets and other goodies
  *
  *  does NOT handle drawing anything--that's for the interface classes in the driver files
  */
-class Galaxy {
+class Galaxy : public UI::Animate {
 
 public:
 
@@ -25,8 +31,35 @@ public:
     for (size_t i = 0; i < numPlanets; i++) {
       planets.emplace_back(0,0,0); 
     }
-    Randomize(); 
+    Randomize();
+    Start();
   };
+
+
+  /** If I'm right, this will be the function called once per frame animation
+   *  which we can use to make Galaxy update independently of the interface
+   *
+   */
+  void DoFrame() {
+    std::cout << "Galaxy updating" << std::endl;
+    Update();
+  }
+
+
+  /** This function will update the state of the galaxy before it is displayed
+   *
+   *  Ostensibly, this should take a double that's the amount of time since the last
+   *  update, since framerates are not a reliable way to judge time
+   *
+   *  but that's probably more complex than we need for this
+   */
+  void Update() {
+
+    for (auto & p : planets) {
+      std::cout << "Growing planet." << std::endl;
+      p.GrowPopulation();
+    }
+  }
 
   /** Function to randomize the starting configuration (location, size) of all the planets, while
    *  attempting to prevent them from overlapping.

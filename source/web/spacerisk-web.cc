@@ -5,7 +5,7 @@
 #include "web/web.h"
 #include "../galaxy.h"
 #include "web/Animate.h"
-
+#include "../PlayerAgent.h"
 
 namespace UI = emp::web;
 
@@ -17,10 +17,8 @@ public:
    *
    */
   void DoFrame () {
-      
       canvas.Clear("black"); 
       auto & planets = galaxy.GetPlanets();
-      std::cout << "Animating frame now." << std::endl;
 
       canvas.Font("10px Arial");
 
@@ -45,7 +43,6 @@ public:
                             planet.GetY(),
                             emp::to_string((int)planet.GetPopulation()),
                             "white");
-          planet.GrowPopulation();
       }
 
   }
@@ -79,12 +76,20 @@ public:
 
 private:
   /// the galaxy this interface displays
+  /// TODO: move the galaxy out of the interface--the galaxy isn't owned by the interface, it's
+  /// just displayed
   Galaxy galaxy;
 
-  // Is this how I use doxygen //< <> >> 
-  //< looks good
   UI::Document doc; ////// make a doc
   UI::Canvas canvas; //< canvas!
+
+  /* the player for this interface
+   * 
+   * TODO: it's actually possible to not have a player, and to just be observing the AIs
+   * Need to account for that
+   *
+   */
+  PlayerAgent * player = nullptr;
 
   void MouseClick(UI::MouseEvent & event){
       int x = event.clientX - canvas.GetXPos();
