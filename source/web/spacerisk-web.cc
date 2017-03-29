@@ -41,8 +41,8 @@ public:
           }
           
           canvas.Draw(planet.GetCircle(), currColor);
-          canvas.CenterText(planet.GetCircle().GetCenterX(),
-                            planet.GetCircle().GetCenterY(),
+          canvas.CenterText(planet.GetX(),
+                            planet.GetY(),
                             emp::to_string((int)planet.GetPopulation()),
                             "white");
           planet.GrowPopulation();

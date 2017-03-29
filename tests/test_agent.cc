@@ -52,6 +52,7 @@ TEST_CASE("planet add owner", "[unit]") {
   Agent Smith("Smith", 0);
 
   Eros.SetOwner(&Smith);
+  REQUIRE(Eros.GetOwner() == &Smith);
   REQUIRE(Eros.GetOwner()->GetName() == "Smith");
   REQUIRE(Eros.GetOwner()->GetColor() == "green");
 }
@@ -71,5 +72,15 @@ TEST_CASE("galaxy random agent assign", "[unit]") {
     REQUIRE(a.GetOwner()->GetName() == "Smith");
     REQUIRE(a.GetOwner()->GetColor() == "green");
   }
+
+}
+
+
+TEST_CASE("planet x y setter/getter", "[unit]") {
+  Planet Eros(5, 10, 15);
+
+  REQUIRE(Eros.GetX() == 5);
+  REQUIRE(Eros.GetY() == 10);
+  REQUIRE(Eros.GetRadius() == 15);
 
 }
