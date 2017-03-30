@@ -28,7 +28,9 @@ public:
    * 
    * \param agent pointer to the agent that will own this planet
    */
-  void SetOwner(Agent * agent) { owner = agent;}
+  void SetOwner(Agent * agent) { 
+    owner = agent; 
+  }
 
   /** Get the circle corresponding to this planet
    *

@@ -39,13 +39,22 @@ public:
   /** Get the planet currently selected by this agent
    *
    */
-  Planet * GetSelected() const { return selected; }
+  const Planet * GetSelected() const { return selected; }
 
   /** set the planet we have selected
    *
    */
-  void SetSelected (Planet * sel) { 
+  void SetSelected (const Planet * sel) { 
     selected = sel;
+  }
+
+ 
+  /** Add a planet to this agent's owned collection
+   * 
+   * \param p pointer to the planet to own
+   */
+  void AddOwnedPlanet (Planet * p) {
+    planets.insert(p);
   }
 
 protected:
@@ -53,7 +62,7 @@ protected:
   std::set<Planet *> planets;
 
   /// the planet selected, currently
-  Planet * selected = nullptr;
+  const Planet * selected = nullptr;
 
   /// Name of this agent
   std::string name = "unassigned";

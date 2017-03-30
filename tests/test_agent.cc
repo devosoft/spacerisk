@@ -15,6 +15,7 @@
 #include "../source/agent.h"
 #include "../source/galaxy.h"
 #include "../source/planet.h"
+#include "../source/Game.h"
 
 
 TEST_CASE("construct agent", "[unit]") {
@@ -30,11 +31,10 @@ TEST_CASE("construct galaxy", "[unit]") {
 }
 
 TEST_CASE("add agent to galaxy", "[unit]") {
-  Galaxy milky(5, 100, 100);
-
-  milky.AddAgent("Smith");
+  Game game(5, 100, 100);
+  game.AddAgent("Smith");
   
-  const emp::vector<Agent> & agents = milky.GetAgents();
+  const emp::vector<Agent> & agents = game.GetAgents();
 
   // only one agent, means we can cheat
   for (const Agent & a : agents) {
@@ -58,16 +58,16 @@ TEST_CASE("planet add owner", "[unit]") {
 }
 
 TEST_CASE("galaxy random agent assign", "[unit]") {
-  Galaxy milky(1, 100, 100);
-  milky.AddAgent("Smith");
-  milky.Randomize(); // will make milky assign Smith to the one planet
+  Game game(1, 100, 100);
+  game.AddAgent("Smith");
+  game.Randomize(); // will make game assign Smith to the one planet
 
-  REQUIRE(milky.GetAgents()[0].GetName() == "Smith");
+  REQUIRE(game.GetAgents()[0].GetName() == "Smith");
 
-  std::cout << &(milky.GetAgents()[0]) << std::endl;
-  std::cout << milky.GetPlanets()[0].GetOwner() << std::endl;
+  std::cout << &(game.GetAgents()[0]) << std::endl;
+  std::cout << game.GetPlanets()[0].GetOwner() << std::endl;
 
-  for (auto a : milky.GetPlanets())
+  for (auto a : game.GetPlanets())
   {
     REQUIRE(a.GetOwner()->GetName() == "Smith");
     REQUIRE(a.GetOwner()->GetColor() == "green");
