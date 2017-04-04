@@ -47,6 +47,7 @@ public:
   void Reset(double x, double y, double r){
       circ.Set(x,y,r);
       population_cap = r*r;
+      population = 0;
   }
 
   /** Set the population of this planet
