@@ -83,4 +83,22 @@ TEST_CASE("planet x y setter/getter", "[unit]") {
   REQUIRE(Eros.GetY() == 10);
   REQUIRE(Eros.GetRadius() == 15);
 
+  Eros.Reset(25, 30, 18);
+  REQUIRE(Eros.GetX() == 25);
+  REQUIRE(Eros.GetY() == 30);
+  REQUIRE(Eros.GetRadius() == 18);
+
+
+}
+
+TEST_CASE("planet reset everything", "[unit]") {
+
+  Planet Eros(5, 10, 15);
+
+  REQUIRE(Eros.GetPopulation() == 0);
+  Eros.SetPopulation(1);
+  REQUIRE(Eros.GetPopulation() == 1);
+
+  Eros.Reset(20, 15, 20);
+  REQUIRE(Eros.GetPopulation() == 0);
 }
