@@ -35,10 +35,6 @@ public:
           {
             currColor = planet.GetOwner()->GetColor();
 
-            if (planet.GetOwner()->GetSelected() != nullptr) {
-              emp::Alert("Found planet!");
-            }
-
             if (&planet == planet.GetOwner()->GetSelected()) {
               currColor = "yellow";
             }
@@ -99,10 +95,18 @@ private:
   void MouseClick(UI::MouseEvent & event){
       int x = event.clientX - canvas.GetXPos();
       int y = event.clientY - canvas.GetYPos();
-     
+   
+      std::cout << "click" << std::endl;
+
       for (auto const & planet : game.GetPlanets()) {
         if(planet.GetCircle().Contains(x, y)) {
-          planet.GetOwner()->SetSelected(&planet);
+          auto * currSelected = planet.GetOwner()->GetSelected();
+          if (currSelected == &planet) {
+            planet.GetOwner()->SetSelected(nullptr);
+          }
+          else {
+            planet.GetOwner()->SetSelected(&planet);
+          }
         }
         
       }

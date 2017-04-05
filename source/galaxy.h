@@ -45,7 +45,6 @@ public:
   void Update() {
 
     for (auto & p : planets) {
-      std::cout << "Growing planet." << std::endl;
       p.GrowPopulation();
     }
   }
