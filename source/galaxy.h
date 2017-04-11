@@ -82,7 +82,7 @@ public:
    *  \param reference to vector containing agents
    *  Will give up after a while if it can't place them without overlaps.
    */
-  void Randomize(emp::vector<Agent> & agents){
+  void Randomize(emp::vector<Agent *> & agents){
     Randomize();
 
     // grant each player a planet
@@ -94,7 +94,7 @@ public:
         randomChoice = random.GetInt(planets.size());
       } while (planets[randomChoice].GetOwner());
 
-      planets[randomChoice].SetOwner(&agent);
+      planets[randomChoice].SetOwner(agent);
       planets[randomChoice].SetPopulation(1);
 
     }

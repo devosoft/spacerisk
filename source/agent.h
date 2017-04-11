@@ -19,7 +19,7 @@ public:
   /** Construct an agent
    * \param n the name of this agent
    */
-  Agent (std::string n, int id) : name(n), ID(id) {
+  Agent (std::string n, int id = -1) : name(n), ID(id) {
     emp_assert(id < emp::GetSize(PlayerColors));
     emp_assert(id >= 0);
     color = PlayerColors[ID];

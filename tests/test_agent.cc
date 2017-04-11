@@ -34,6 +34,7 @@ TEST_CASE("add agent to galaxy", "[unit]") {
   Game game(5, 100, 100);
   game.AddAgent("Smith");
   
+  // TODO: make thing to inherit and reveal agents
   const emp::vector<Agent> & agents = game.GetAgents();
 
   // only one agent, means we can cheat
@@ -62,8 +63,10 @@ TEST_CASE("galaxy random agent assign", "[unit]") {
   game.AddAgent("Smith");
   game.Randomize(); // will make game assign Smith to the one planet
 
+  // TODO: make something to inherit from game and reveal agent
   REQUIRE(game.GetAgents()[0].GetName() == "Smith");
 
+  // see above
   std::cout << &(game.GetAgents()[0]) << std::endl;
   std::cout << game.GetPlanets()[0].GetOwner() << std::endl;
 

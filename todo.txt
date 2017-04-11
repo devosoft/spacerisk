@@ -1,0 +1,16 @@
+color can be based off of ID, but is not inherent to agent
+  * color only matters to web interface
+
+game::AddAgent(Agent *) should set the agent ID, so all agents in the game have unique IDs (and
+thus unique colors)
+
+fix tests to include TestGame : public game
+also make agents<> in game be protected, not private
+
+new question: who owns agents? (programming hygine)
+  * pointers need to get deleted when game is done
+  * those pointers owned by interfaces shouldn't get deleted when game destructs
+    - note that game is owned by the interface currently, and that needs to get fixed
+
+  * what manages everything?
+    

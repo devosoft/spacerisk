@@ -24,9 +24,15 @@ public:
   *  
   * \param name the name of the agent to add
   */
-  void AddAgent(std::string name)
+  Agent & AddAgent(std::string name)
   {
-    agents.emplace_back(name, agents.size());
+    agents.emplace_back(new Agent(name, agents.size()));
+    return *(agents.back());
+  }
+
+  Agent & AddAgent(Agent * a) {
+    agents.emplace_back(a);
+    return *(agents.back());
   }
 
   /** Update the game
@@ -54,12 +60,7 @@ public:
     galaxy.Randomize(agents);
   }
 
-  /** Get the agents in this game
-   *  TODO: make this not dump private content into the world
-   */
-  emp::vector<Agent> GetAgents() const { return agents;}
-
 private:
   Galaxy galaxy;
-  emp::vector<Agent> agents;
+  emp::vector<Agent* > agents;
 };

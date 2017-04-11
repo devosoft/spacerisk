@@ -64,7 +64,9 @@ public:
      game.AddAgent("Steven");
      game.AddAgent("Tess");
      game.AddAgent("Sponge");
-     canvas.On("click", [this](UI::MouseEvent event){ MouseClick(event);}); 
+     canvas.On("click", [this](UI::MouseEvent event){ MouseClick(event);});
+
+     game.AddAgent(&player);
 
      Start(); //start animation DoFrame() will be run repeatedly
   }
@@ -90,7 +92,7 @@ private:
    * Need to account for that
    *
    */
-  PlayerAgent * player = nullptr;
+  PlayerAgent player;
 
   void MouseClick(UI::MouseEvent & event){
       int x = event.clientX - canvas.GetXPos();
