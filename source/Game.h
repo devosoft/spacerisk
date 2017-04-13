@@ -22,6 +22,17 @@ public:
 
   Game(size_t numPlanets, double width, double height) : galaxy(numPlanets, width, height) {}
 
+  /** When destructing, only delete those agents which we created.
+   *
+   */
+  ~Game() {
+    for (auto p : agents) {
+      if (p.second) {
+        delete p.first;
+      }
+    }
+  }
+
   /** Add a player to the game
   *  
   * \param name the name of the agent to add
