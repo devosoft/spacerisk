@@ -21,6 +21,8 @@
 class TestGame : public Game {
 
 public:
+    TestGame() = delete;
+
     TestGame(size_t numPlanets, double width, double height) : Game(numPlanets, width, height) {}
 
     emp::vector<Agent *> & GetAgents () { return agents; } 
@@ -30,7 +32,7 @@ TEST_CASE("construct agent", "[unit]") {
   Agent smith("smith", 1);
 
   REQUIRE(smith.GetName() == "smith");
-  REQUIRE(smith.GetColor() == "red");
+  REQUIRE(smith.GetID() == 1);
 }
 
 TEST_CASE("construct galaxy", "[unit]") {
@@ -41,14 +43,15 @@ TEST_CASE("construct galaxy", "[unit]") {
 TEST_CASE("add agent to galaxy", "[unit]") {
   TestGame game(5, 100, 100);
   game.AddAgent("Smith");
-  
+ 
+  Agent * Jay = new Agent("Jay");
+  game.AddAgent(Jay);
   const emp::vector<Agent *> & agents = game.GetAgents();
 
-  // only one agent, means we can cheat
-  for (auto a : agents) {
-    REQUIRE(a->GetName() == "Smith");
-    REQUIRE(a->GetColor() == "green");
-  }
+  REQUIRE(agents[0]->GetName() == "Smith");
+  REQUIRE(agents[0]->GetID() == 0);
+  REQUIRE(agents[1]->GetName() == "Jay");
+  REQUIRE(agents[1]->GetID() == 1);
 }
 
 TEST_CASE("planet construct", "[unit]"){
@@ -57,12 +60,12 @@ TEST_CASE("planet construct", "[unit]"){
 
 TEST_CASE("planet add owner", "[unit]") {
   Planet Eros(0, 0, 1);
-  Agent Smith("Smith", 0);
+  Agent Smith("Smith");
 
   Eros.SetOwner(&Smith);
   REQUIRE(Eros.GetOwner() == &Smith);
   REQUIRE(Eros.GetOwner()->GetName() == "Smith");
-  REQUIRE(Eros.GetOwner()->GetColor() == "green");
+  REQUIRE(Eros.GetOwner()->GetID() == -1);
 }
 
 TEST_CASE("galaxy random agent assign", "[unit]") {
@@ -79,7 +82,7 @@ TEST_CASE("galaxy random agent assign", "[unit]") {
   for (auto a : game.GetPlanets())
   {
     REQUIRE(a.GetOwner()->GetName() == "Smith");
-    REQUIRE(a.GetOwner()->GetColor() == "green");
+    REQUIRE(a.GetOwner()->GetID() == 0);
   }
 
 }

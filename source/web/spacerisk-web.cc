@@ -13,6 +13,8 @@
 
 namespace UI = emp::web;
 
+static const std::string PlayerColors[] = { "green", "red", "blue", "yellow", "purple", "orange", "brown"};
+
 // TODO: @CAO, plz to not make animate need the canvas at constructor time
 class WebInterface : public UI::Animate {
 public:
@@ -33,7 +35,7 @@ public:
 
           if (planet.GetOwner() != nullptr)
           {
-            currColor = planet.GetOwner()->GetColor();
+            currColor = PlayerColors[planet.GetOwner()->GetID()];
 
             if (&planet == planet.GetOwner()->GetSelected()) {
               currColor = "yellow";
@@ -55,7 +57,8 @@ public:
    */
   WebInterface(uint64_t numPlanets, double width, double height) : game(numPlanets, width, height),
                                                                    doc("emp_base"), 
-                                                                   canvas(doc.AddCanvas(width, height, "map")) {
+                                                                   canvas(doc.AddCanvas(width, height, "map")),
+                                                                   player("Player") {
      // help, I'm trapped in a canvas factory
 
      doc.AddButton([this](){game.Randomize();}, "Randomize", "random_button");

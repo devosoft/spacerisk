@@ -9,7 +9,6 @@
 // TODO: if this is header only, nuke the following & fix the fallout
 class Planet;
 
-static const std::string PlayerColors[] = { "green", "red", "blue", "yellow", "purple", "orange", "brown"};
 
 class Agent {
 public:
@@ -20,21 +19,12 @@ public:
    * \param n the name of this agent
    */
   Agent (std::string n, int id = -1) : name(n), ID(id) {
-    emp_assert(id < emp::GetSize(PlayerColors));
-    emp_assert(id >= 0);
-    color = PlayerColors[ID];
   }
-
-  /** Get the color of this agent
-   *
-   * \return the color of this agent */
-  std::string GetColor() const { return color; }
 
   /** Get the name of the agent
    *
    */
   std::string GetName() const { return name; }
-
 
   /** Get the planet currently selected by this agent
    *
@@ -47,7 +37,6 @@ public:
   void SetSelected (const Planet * sel) { 
     selected = sel;
   }
-
  
   /** Add a planet to this agent's owned collection
    * 
@@ -56,6 +45,16 @@ public:
   void AddOwnedPlanet (Planet * p) {
     planets.insert(p);
   }
+
+  /** Get the ID of this agent
+   * \returns the id of this agent
+   */
+  int GetID() { return ID; }
+
+  /** Set the ID of this agent
+   *  \param i the new id of this agent
+   */
+  void SetID(int i) { ID = i;}
 
 protected:
   /// vector of pointers to planets owned by this agent
@@ -66,9 +65,6 @@ protected:
 
   /// Name of this agent
   std::string name = "unassigned";
-
-  /// Color of this agent
-  std::string color = "no color";
 
   /// The ID of this agent
   int ID = -1;

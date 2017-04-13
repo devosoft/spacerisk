@@ -31,6 +31,7 @@ public:
   }
 
   Agent & AddAgent(Agent * a) {
+    a->SetID(agents.size());
     agents.emplace_back(a);
     return *(agents.back());
   }
