@@ -11,6 +11,8 @@
 
 #include "tools/vector.h"
 
+#include <utility>
+
 #include "agent.h"
 #include "galaxy.h"
 
@@ -26,14 +28,14 @@ public:
   */
   Agent & AddAgent(std::string name)
   {
-    agents.emplace_back(new Agent(name, agents.size()));
-    return *(agents.back());
+    agents.push_back(std::make_pair(new Agent(name, agents.size()), true));
+    return *(agents.back().first);
   }
 
   Agent & AddAgent(Agent * a) {
     a->SetID(agents.size());
-    agents.emplace_back(a);
-    return *(agents.back());
+    agents.push_back(std::make_pair(a, false));
+    return *(agents.back().first);
   }
 
   /** Update the game
@@ -63,5 +65,5 @@ public:
 
 protected:
   Galaxy galaxy;
-  emp::vector<Agent* > agents;
+  emp::vector<std::pair<Agent* , bool>> agents;
 };

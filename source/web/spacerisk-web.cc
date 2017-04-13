@@ -13,7 +13,7 @@
 
 namespace UI = emp::web;
 
-static const std::string PlayerColors[] = { "green", "red", "blue", "yellow", "purple", "orange", "brown"};
+static const std::string PlayerColors[] = { "green", "red", "blue", "purple", "orange", "brown"};
 
 // TODO: @CAO, plz to not make animate need the canvas at constructor time
 class WebInterface : public UI::Animate {
@@ -37,7 +37,7 @@ public:
           {
             currColor = PlayerColors[planet.GetOwner()->GetID()];
 
-            if (&planet == planet.GetOwner()->GetSelected()) {
+            if (&planet == currSelected) {
               currColor = "yellow";
             }
           }
@@ -97,6 +97,12 @@ private:
    */
   PlayerAgent player;
 
+  // TODO: we don't want this to be const (since we'll be modifying the planets by 
+  // interacting with them), but we have the planet refs below as consts, so....
+  // yeah.
+  // need to fix that.
+  const Planet * currSelected;
+
   void MouseClick(UI::MouseEvent & event){
       int x = event.clientX - canvas.GetXPos();
       int y = event.clientY - canvas.GetYPos();
@@ -105,12 +111,14 @@ private:
 
       for (auto const & planet : game.GetPlanets()) {
         if(planet.GetCircle().Contains(x, y)) {
-          auto * currSelected = planet.GetOwner()->GetSelected();
           if (currSelected == &planet) {
-            planet.GetOwner()->SetSelected(nullptr);
+            currSelected = nullptr;
           }
           else {
-            planet.GetOwner()->SetSelected(&planet);
+            if (planet.GetOwner() == &player) {
+              currSelected = &planet;
+              std::cout << "Clicked on something we own." << std::endl;
+            }
           }
         }
         

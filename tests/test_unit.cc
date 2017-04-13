@@ -25,7 +25,7 @@ public:
 
     TestGame(size_t numPlanets, double width, double height) : Game(numPlanets, width, height) {}
 
-    emp::vector<Agent *> & GetAgents () { return agents; } 
+    auto & GetAgents () { return agents; } 
 };
 
 TEST_CASE("construct agent", "[unit]") {
@@ -46,12 +46,12 @@ TEST_CASE("add agent to galaxy", "[unit]") {
  
   Agent * Jay = new Agent("Jay");
   game.AddAgent(Jay);
-  const emp::vector<Agent *> & agents = game.GetAgents();
+  const emp::vector<std::pair<Agent *, bool>> & agents = game.GetAgents();
 
-  REQUIRE(agents[0]->GetName() == "Smith");
-  REQUIRE(agents[0]->GetID() == 0);
-  REQUIRE(agents[1]->GetName() == "Jay");
-  REQUIRE(agents[1]->GetID() == 1);
+  REQUIRE(agents[0].first->GetName() == "Smith");
+  REQUIRE(agents[0].first->GetID() == 0);
+  REQUIRE(agents[1].first->GetName() == "Jay");
+  REQUIRE(agents[1].first->GetID() == 1);
 }
 
 TEST_CASE("planet construct", "[unit]"){
@@ -73,7 +73,7 @@ TEST_CASE("galaxy random agent assign", "[unit]") {
   game.AddAgent("Smith");
   game.Randomize(); // will make game assign Smith to the one planet
 
-  REQUIRE(game.GetAgents()[0]->GetName() == "Smith");
+  REQUIRE(game.GetAgents()[0].first->GetName() == "Smith");
 
   // see above
   std::cout << &(game.GetAgents()[0]) << std::endl;
