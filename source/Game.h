@@ -60,7 +60,7 @@ public:
     galaxy.Randomize(agents);
   }
 
-private:
+protected:
   Galaxy galaxy;
   emp::vector<Agent* > agents;
 };

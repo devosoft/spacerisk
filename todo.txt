@@ -4,9 +4,6 @@ color can be based off of ID, but is not inherent to agent
 game::AddAgent(Agent *) should set the agent ID, so all agents in the game have unique IDs (and
 thus unique colors)
 
-fix tests to include TestGame : public game
-also make agents<> in game be protected, not private
-
 new question: who owns agents? (programming hygine)
   * pointers need to get deleted when game is done
   * those pointers owned by interfaces shouldn't get deleted when game destructs

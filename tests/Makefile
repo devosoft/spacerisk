@@ -1,6 +1,6 @@
 GCOV_FLAGS = -o0 -g --coverage
  
-TEST_NAMES = agent
+TEST_NAMES = unit
 
 EMP_DIR := ../../Empirical
 

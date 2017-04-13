@@ -18,6 +18,14 @@
 #include "../source/Game.h"
 
 
+class TestGame : public Game {
+
+public:
+    TestGame(size_t numPlanets, double width, double height) : Game(numPlanets, width, height) {}
+
+    emp::vector<Agent *> & GetAgents () { return agents; } 
+};
+
 TEST_CASE("construct agent", "[unit]") {
   Agent smith("smith", 1);
 
@@ -31,16 +39,15 @@ TEST_CASE("construct galaxy", "[unit]") {
 }
 
 TEST_CASE("add agent to galaxy", "[unit]") {
-  Game game(5, 100, 100);
+  TestGame game(5, 100, 100);
   game.AddAgent("Smith");
   
-  // TODO: make thing to inherit and reveal agents
-  const emp::vector<Agent> & agents = game.GetAgents();
+  const emp::vector<Agent *> & agents = game.GetAgents();
 
   // only one agent, means we can cheat
-  for (const Agent & a : agents) {
-    REQUIRE(a.GetName() == "Smith");
-    REQUIRE(a.GetColor() == "green");
+  for (auto a : agents) {
+    REQUIRE(a->GetName() == "Smith");
+    REQUIRE(a->GetColor() == "green");
   }
 }
 
@@ -59,12 +66,11 @@ TEST_CASE("planet add owner", "[unit]") {
 }
 
 TEST_CASE("galaxy random agent assign", "[unit]") {
-  Game game(1, 100, 100);
+  TestGame game(1, 100, 100);
   game.AddAgent("Smith");
   game.Randomize(); // will make game assign Smith to the one planet
 
-  // TODO: make something to inherit from game and reveal agent
-  REQUIRE(game.GetAgents()[0].GetName() == "Smith");
+  REQUIRE(game.GetAgents()[0]->GetName() == "Smith");
 
   // see above
   std::cout << &(game.GetAgents()[0]) << std::endl;
